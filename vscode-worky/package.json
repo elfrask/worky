@@ -2,7 +2,7 @@
   "name": "worky",
   "displayName": "Worky",
   "description": "Resaltado de sintaxis, snippets, autocompletado y documentacion para el lenguaje declarativo Worky (.worky).",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "publisher": "worky",
   "license": "MIT",
   "engines": {
@@ -59,6 +59,11 @@
       {
         "command": "worky.run",
         "title": "Desplegar workspace",
+        "category": "Worky"
+      },
+      {
+        "command": "worky.cli",
+        "title": "Abrir consola interactiva (--cli)",
         "category": "Worky"
       }
     ],

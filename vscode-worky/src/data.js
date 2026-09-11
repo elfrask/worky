@@ -46,6 +46,11 @@ const TOOLS = {
     detail: "Herramienta Worky - /kill <nombre> | /kill all",
     doc: "**/kill** cierra una instancia del workspace desde otra instancia.\n\n- `/kill \"nombre\"` cierra la instancia con ese nombre.\n- `/kill all` cierra todas las instancias de la ejecucion actual.\n\n**Ejemplo**\n```worky\nrun {\n  os: all {\n    /pause\n    /kill \"servidor\"\n    /kill all\n  }\n}\n```",
   },
+  shell: {
+    label: "/shell",
+    detail: "Herramienta Worky - /shell [comando] | /shell { ... }",
+    doc: "**/shell** abre el shell del sistema (cmd en Windows, bash en Linux) de forma portable.\n\n- `/shell` abre un shell interactivo.\n- `/shell <comando>` ejecuta el comando dentro del shell y **deja el shell abierto** al terminar.\n- `/shell { ... }` ejecuta varios comandos y deja el shell abierto.\n\n**Ejemplos**\n```worky\nrun \"dev\" {\n  os: all {\n    /shell\n    /shell pnpm run dev\n    /shell {\n      git status\n      git pull\n    }\n  }\n}\n```",
+  },
 };
 
 const BUILTIN_VARS = [

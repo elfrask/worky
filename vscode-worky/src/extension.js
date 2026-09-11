@@ -314,6 +314,17 @@ function activate(context) {
       terminal.sendText('worky "' + editor.document.fileName + '"');
     })
   );
+
+  context.subscriptions.push(
+    vscode.commands.registerCommand("worky.cli", () => {
+      const editor = vscode.window.activeTextEditor;
+      const file =
+        editor && editor.document.languageId === "worky" ? ' "' + editor.document.fileName + '"' : "";
+      const terminal = vscode.window.createTerminal("Worky CLI");
+      terminal.show();
+      terminal.sendText("worky --cli" + file);
+    })
+  );
 }
 
 function deactivate() {}

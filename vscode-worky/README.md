@@ -7,7 +7,7 @@ para archivos `.worky`.
 ## Caracteristicas
 
 - **Resaltado de sintaxis** para comentarios, variables (`$var`, `$~1`, `$*`),
-  cadenas con interpolacion, numeros, operadores, herramientas (`/pause`, `/kill`),
+  cadenas con interpolacion, numeros, operadores, herramientas (`/pause`, `/kill`, `/shell`),
   palabras clave de flujo (`in`, `run`, `os`, `set`, `export`) y comandos del shell.
 - **Snippets** para cada flujo de control.
 - **Autocompletado** contextual:
@@ -16,14 +16,35 @@ para archivos `.worky`.
   - herramientas `/`,
   - **comandos de sistema operativo** (Windows y Linux) dentro de los bloques `os`.
 - **Hover** con documentacion de cada control de flujo, herramienta y comando.
-- Comandos de la paleta: `Worky: Mostrar documentacion del lenguaje` y
-  `Worky: Desplegar workspace`.
+- Comandos de la paleta: `Worky: Mostrar documentacion del lenguaje`,
+  `Worky: Desplegar workspace` y `Worky: Abrir consola interactiva (--cli)`.
 
 ## Uso
 
 Abre cualquier archivo `.worky`. La extension se activa sola. Escribe para ver
 sugerencias, o pasa el cursor sobre una palabra para ver su documentacion.
 Usa la paleta de comandos (`Ctrl+Shift+P`) y busca **Worky**.
+
+## Consola interactiva (`worky --cli`)
+
+Worky incluye una consola avanzada construida con [Textual](https://textual.textualize.io/)
+que abre terminales reales (PTY) con pestanas y multiples instancias:
+
+```bash
+worky --cli                 # consola vacia con un shell
+worky --cli workspace.worky # carga las instancias del archivo como pestanas
+```
+
+- **Ctrl+P** abre la paleta de comandos para: crear terminales (shell o con
+  comando), hacer **fork** de la sesion actual, renombrar, cambiar de directorio
+  (`cd` en caliente), enviar comandos, cerrar pestanas, abrir otro `.worky` y
+  **guardar la configuracion actual en un archivo `.worky`**. Dentro de la paleta
+  usa las **flechas arriba/abajo** para moverte por las opciones y `Enter` para
+  elegir.
+- Atajos: `Ctrl+T` nueva terminal, `Ctrl+N` fork, `Ctrl+W` cerrar,
+  `Ctrl+Left`/`Ctrl+Right` cambiar de shell, `Ctrl+Q` salir.
+
+Requiere las dependencias opcionales: `pip install "worky[cli]"`.
 
 ## El lenguaje Worky
 
@@ -116,8 +137,21 @@ os: all {
 - `/pause` - espera a que el usuario pulse Enter.
 - `/kill "nombre"` - cierra la instancia indicada.
 - `/kill all` - cierra todas las instancias de la ejecucion actual.
+- `/shell` - abre el shell del sistema (cmd en Windows, bash en Linux).
+- `/shell <comando>` - ejecuta el comando en el shell y lo deja abierto al terminar.
+- `/shell { ... }` - ejecuta varios comandos en el shell y lo deja abierto.
 
 ```worky
+run "dev" {
+  os: all {
+    /shell {
+      git status
+      git pull
+    }
+    /shell pnpm run dev
+  }
+}
+
 run {
   os: all {
     /pause
@@ -182,7 +216,7 @@ in "./" {
 ```bash
 npm install -g @vscode/vsce
 vsce package
-code --install-extension worky-0.1.0.vsix
+code --install-extension worky-0.2.0.vsix
 ```
 
 ## Estructura

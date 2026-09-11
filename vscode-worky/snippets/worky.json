@@ -113,6 +113,31 @@
     ],
     "description": "Herramienta Worky: cierra la instancia indicada. Usa /kill all para cerrar todas."
   },
+  "Tool shell": {
+    "prefix": "/shell",
+    "body": [
+      "/shell"
+    ],
+    "description": "Herramienta Worky: abre el shell del sistema (cmd/bash) y lo deja abierto."
+  },
+  "Tool shell con comando": {
+    "prefix": "/shell-cmd",
+    "body": [
+      "/shell ${1:pnpm run dev}"
+    ],
+    "description": "Herramienta Worky: ejecuta un comando en el shell y deja el shell abierto."
+  },
+  "Tool shell con bloque": {
+    "prefix": "/shell-block",
+    "body": [
+      "/shell {",
+      "\t${1:git status}",
+      "\t${2:git pull}",
+      "\t$0",
+      "}"
+    ],
+    "description": "Herramienta Worky: ejecuta varios comandos en el shell y lo deja abierto."
+  },
   "Workspace completo": {
     "prefix": "workspace",
     "body": [

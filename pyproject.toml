@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "worky"
+version = "0.2.0"
+description = "Workspaces declarativos en terminal mediante el lenguaje .worky"
+requires-python = ">=3.10"
+authors = [{ name = "worky" }]
+dependencies = []
+
+[project.optional-dependencies]
+cli = [
+    "textual>=0.80",
+    "pyte>=0.8",
+    "pywinpty>=2.0; sys_platform == 'win32'",
+]
+dev = ["pytest>=8"]
+
+[project.scripts]
+worky = "worky.cli:main"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
