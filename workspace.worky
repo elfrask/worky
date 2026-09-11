@@ -1,0 +1,72 @@
+
+// comentario
+$name = "worky-space"
+
+// argumentos
+$args = ["$~1", "$~2", ...$*]
+
+// matematicas
+$num = 1
+$sum = 5 + $num // 6
+
+
+// flujo de control:
+// el lenguaje tiene como objetivo detectar el sistema operativo en el que esta y permitir desplegar
+// multiples sesiones de linea de comandos o terminales, ejecutar comandos. etc.
+
+in "./" {
+
+  // crea una instancia y nombrala, despliega segun el sistema
+  // la instancia se crea en otra ventana, el programa se sigue ejecutando
+  run "terminal" {
+    os: win32 {
+      set a = 1
+      set b = 1
+      cmd
+    }
+
+    os: linux {
+      export a = 1
+      export b = 1
+      bash
+      
+    }
+
+    os: all {
+      echo "se ha cerrado la instancia correctamente"
+    }
+  }
+
+  run "servidor" {
+    os: all {
+      pnpm run dev
+    }
+  }
+  
+}
+
+// crea una instancia en el directorio de ./app
+in "./app" {
+  run "terminal-app" {
+    os: win32 {
+      cmd
+    }
+    os: linux {
+      bash
+    }
+  }
+}
+
+// crea una instancia para cerrar todas
+in "./" {
+  run {
+    os: all {
+      echo "dar enter para cerrar todo"
+      /pause // todos los comandos que inician en "/" son herramientas de worky
+      /kill "terminal"
+      /kill "servidor"
+      /kill "terminal-app"
+      // tambien se puede usar "/kill all" para cerrar todas las instancias 
+    }
+  }
+}

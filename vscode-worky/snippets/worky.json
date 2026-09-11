@@ -1,0 +1,151 @@
+{
+  "In block (directorio)": {
+    "prefix": "in",
+    "body": [
+      "in \"${1:./}\" {",
+      "\t$0",
+      "}"
+    ],
+    "description": "Define un directorio de trabajo. Todo lo que contiene se despliega relativo a esa ruta."
+  },
+  "Run instancia con nombre": {
+    "prefix": "run",
+    "body": [
+      "run \"${1:nombre}\" {",
+      "\tos: ${2|all,win32,linux,darwin|} {",
+      "\t\t$0",
+      "\t}",
+      "}"
+    ],
+    "description": "Crea una instancia (ventana/pestana/panel) con nombre y comandos por sistema operativo."
+  },
+  "Run instancia anonima": {
+    "prefix": "run-anon",
+    "body": [
+      "run {",
+      "\tos: all {",
+      "\t\t$0",
+      "\t}",
+      "}"
+    ],
+    "description": "Crea una instancia sin nombre. Worky le asigna run1, run2, ..."
+  },
+  "Run multiplataforma (win32 + linux)": {
+    "prefix": "run-os",
+    "body": [
+      "run \"${1:nombre}\" {",
+      "\tos: win32 {",
+      "\t\t${2:cmd}",
+      "\t}",
+      "\tos: linux {",
+      "\t\t${3:bash}",
+      "\t}",
+      "\tos: all {",
+      "\t\t$0",
+      "\t}",
+      "}"
+    ],
+    "description": "Instancia con comandos distintos para Windows y Linux, mas un bloque comun."
+  },
+  "Bloque os": {
+    "prefix": "os",
+    "body": [
+      "os: ${1|all,win32,linux,darwin|} {",
+      "\t$0",
+      "}"
+    ],
+    "description": "Bloque condicional por sistema operativo dentro de un run."
+  },
+  "Variable": {
+    "prefix": "$",
+    "body": [
+      "\\$${1:nombre} = ${2:\"valor\"}"
+    ],
+    "description": "Declara una variable. Se interpola con $nombre dentro de cadenas."
+  },
+  "Argumentos de linea de comandos": {
+    "prefix": "args",
+    "body": [
+      "\\$args = [\"\\$~1\", \"\\$~2\", ...\\$*]"
+    ],
+    "description": "$~1, $~2 son posicionales; $* contiene todos los argumentos."
+  },
+  "Matematica": {
+    "prefix": "math",
+    "body": [
+      "\\$${1:num} = ${2:1}",
+      "\\$${3:sum} = ${4:5} + \\$${1:num}"
+    ],
+    "description": "Operaciones aritmeticas con + - * / entre numeros."
+  },
+  "Array": {
+    "prefix": "array",
+    "body": [
+      "\\$${1:lista} = [\"${2:uno}\", \"${3:dos}\"]"
+    ],
+    "description": "Define un array. Usa ... para expandir otro array dentro."
+  },
+  "Establecer variable de entorno": {
+    "prefix": "set",
+    "body": [
+      "set ${1:CLAVE} = ${2:\"valor\"}"
+    ],
+    "description": "Define una variable de entorno para la instancia en Windows."
+  },
+  "Exportar variable de entorno": {
+    "prefix": "export",
+    "body": [
+      "export ${1:CLAVE} = ${2:\"valor\"}"
+    ],
+    "description": "Exporta una variable de entorno para la instancia en Linux (bash)."
+  },
+  "Tool pause": {
+    "prefix": "/pause",
+    "body": [
+      "/pause"
+    ],
+    "description": "Herramienta Worky: espera a que el usuario pulse Enter."
+  },
+  "Tool kill": {
+    "prefix": "/kill",
+    "body": [
+      "/kill ${1:nombre}"
+    ],
+    "description": "Herramienta Worky: cierra la instancia indicada. Usa /kill all para cerrar todas."
+  },
+  "Workspace completo": {
+    "prefix": "workspace",
+    "body": [
+      "// ${1:workspace}",
+      "\\$name = \"${2:worky-space}\"",
+      "",
+      "in \"./\" {",
+      "\trun \"${3:terminal}\" {",
+      "\t\tos: win32 {",
+      "\t\t\tcmd",
+      "\t\t}",
+      "\t\tos: linux {",
+      "\t\t\tbash",
+      "\t\t}",
+      "\t}",
+      "",
+      "\trun \"${4:servidor}\" {",
+      "\t\tos: all {",
+      "\t\t\t${5:pnpm run dev}",
+      "\t\t}",
+      "\t}",
+      "}",
+      "",
+      "in \"./\" {",
+      "\trun {",
+      "\t\tos: all {",
+      "\t\t\t/pause",
+      "\t\t\t/kill all",
+      "\t\t}",
+      "\t}",
+      "}",
+      "$0"
+    ],
+    "description": "Esqueleto completo de un workspace con terminal, servidor y tarea de cierre."
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "name": "worky",
+  "displayName": "Worky",
+  "description": "Resaltado de sintaxis, snippets, autocompletado y documentacion para el lenguaje declarativo Worky (.worky).",
+  "version": "0.1.0",
+  "publisher": "worky",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Snippets",
+    "Other"
+  ],
+  "keywords": [
+    "worky",
+    "workspace",
+    "terminal",
+    "declarativo"
+  ],
+  "main": "./src/extension.js",
+  "activationEvents": [
+    "onLanguage:worky"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "worky",
+        "aliases": [
+          "Worky",
+          "worky"
+        ],
+        "extensions": [
+          ".worky"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "worky",
+        "scopeName": "source.worky",
+        "path": "./syntaxes/worky.tmLanguage.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "worky",
+        "path": "./snippets/worky.json"
+      }
+    ],
+    "commands": [
+      {
+        "command": "worky.showDocs",
+        "title": "Mostrar documentacion del lenguaje",
+        "category": "Worky"
+      },
+      {
+        "command": "worky.run",
+        "title": "Desplegar workspace",
+        "category": "Worky"
+      }
+    ],
+    "configuration": {
+      "title": "Worky",
+      "properties": {
+        "worky.completions.osCommands": {
+          "type": "boolean",
+          "default": true,
+          "description": "Ofrecer autocompletado de comandos de sistema operativo conocidos dentro de bloques 'os'."
+        },
+        "worky.completions.preferContext": {
+          "type": "boolean",
+          "default": true,
+          "description": "Priorizar los comandos del sistema operativo del bloque 'os' donde esta el cursor."
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,140 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Worky",
+  "scopeName": "source.worky",
+  "patterns": [
+    { "include": "#comments" },
+    { "include": "#keywords" },
+    { "include": "#variables" },
+    { "include": "#strings" },
+    { "include": "#numbers" },
+    { "include": "#tools" },
+    { "include": "#operators" },
+    { "include": "#punctuation" },
+    { "include": "#commands" }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "match": "//.*$",
+          "name": "comment.line.double-slash.worky"
+        }
+      ]
+    },
+    "keywords": {
+      "patterns": [
+        {
+          "match": "\\b(os)\\s*:\\s*(win32|linux|darwin|all)\\b",
+          "captures": {
+            "1": { "name": "keyword.control.worky" },
+            "2": { "name": "constant.language.os.worky" }
+          }
+        },
+        {
+          "match": "\\b(in|run|set|export)\\b",
+          "name": "keyword.control.worky"
+        }
+      ]
+    },
+    "variables": {
+      "patterns": [
+        {
+          "match": "\\$\\*",
+          "name": "variable.language.arguments.worky"
+        },
+        {
+          "match": "\\$~\\d+",
+          "name": "variable.language.arguments.worky"
+        },
+        {
+          "match": "\\$[A-Za-z_][\\w]*",
+          "name": "variable.other.worky"
+        }
+      ]
+    },
+    "strings": {
+      "patterns": [
+        {
+          "name": "string.quoted.double.worky",
+          "begin": "\"",
+          "end": "\"",
+          "patterns": [
+            {
+              "match": "\\\\.",
+              "name": "constant.character.escape.worky"
+            },
+            {
+              "match": "\\$(?:~\\d+|\\*|[A-Za-z_][\\w]*)",
+              "name": "variable.other.interpolation.worky"
+            }
+          ]
+        }
+      ]
+    },
+    "numbers": {
+      "patterns": [
+        {
+          "match": "\\b\\d+(?:\\.\\d+)?\\b",
+          "name": "constant.numeric.worky"
+        }
+      ]
+    },
+    "tools": {
+      "patterns": [
+        {
+          "match": "^\\s*(/[A-Za-z_][\\w-]*)",
+          "captures": {
+            "1": { "name": "support.function.tool.worky" }
+          }
+        }
+      ]
+    },
+    "operators": {
+      "patterns": [
+        {
+          "match": "\\.\\.\\.",
+          "name": "keyword.operator.spread.worky"
+        },
+        {
+          "match": "=",
+          "name": "keyword.operator.assignment.worky"
+        },
+        {
+          "match": "[:]",
+          "name": "keyword.operator.os.worky"
+        },
+        {
+          "match": "[+\\-*/]",
+          "name": "keyword.operator.arithmetic.worky"
+        }
+      ]
+    },
+    "punctuation": {
+      "patterns": [
+        {
+          "match": "[{}]",
+          "name": "punctuation.definition.block.worky"
+        },
+        {
+          "match": "[\\[\\]]",
+          "name": "punctuation.definition.array.worky"
+        },
+        {
+          "match": "[(),]",
+          "name": "punctuation.separator.worky"
+        }
+      ]
+    },
+    "commands": {
+      "patterns": [
+        {
+          "match": "^[ \\t]*(?!(?:in|run|os|set|export)\\b)([A-Za-z_][\\w.-]*)",
+          "captures": {
+            "1": { "name": "support.function.command.worky" }
+          }
+        }
+      ]
+    }
+  }
+}
