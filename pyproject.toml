@@ -6,8 +6,18 @@ build-backend = "setuptools.build_meta"
 name = "worky"
 version = "0.2.0"
 description = "Workspaces declarativos en terminal mediante el lenguaje .worky"
+readme = "README.md"
+license = { text = "MIT" }
 requires-python = ">=3.10"
-authors = [{ name = "worky" }]
+authors = [{ name = "elfrask", email = "elfraskodev@gmail.com" }]
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX :: Linux",
+    "Environment :: Console",
+    "Topic :: Terminals",
+]
 dependencies = []
 
 [project.optional-dependencies]
